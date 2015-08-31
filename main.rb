@@ -74,8 +74,7 @@ while response.downcase != 'q'
     gets
 
   when '3'
-    puts 'The animals available for adoption are:'
-    #list animals from hash - by name, then choose name for more info or display all at once?
+    puts 'The animals available for adoption from Happy Tails Shelter are:'
     list_animals(happy_tails)
     gets
 
