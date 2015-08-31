@@ -1,15 +1,14 @@
 class Client
 
-  attr_reader :name 
-  attr_accessor :age, :gender, :number_of_pets
+  attr_reader :client_name 
+  attr_accessor :client_age, :client_gender, :client_number_of_pets
 
-  def initialize
-    @clients = { # @ needed here?
-      name: '',
-      age: '',
-      gender: '',
-      number_of_pets: ''
-    }
+  def initialize(client_name, client_age, client_gender, client_number_of_pets)
+    @client_name = client_name
+    @client_age = client_age
+    @client_gender = client_gender
+    @client_number_of_pets = client_number_of_pets
   end
 
 end
+

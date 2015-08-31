@@ -5,11 +5,11 @@ require_relative 'shelter'
 happy_tails = Shelter.new('Happy Tails Animal Shelter')
 
 def list_animals shelter
-  shelter.animals.each_with_index # work with hash? #ouput hash k/v
+  shelter.animals.each_with_index {|animal, index| puts "#{index} : #{animal_name}"}
 end
 
 def list_clients shelter
-  shelter.clients.each_with_index # ditto above?
+  shelter.clients.each_with_index {|client, index| puts "#{index} : #{client_name}"}
 end
 
 def menu
@@ -17,10 +17,10 @@ def menu
   puts '*' * 52
   puts 'Welcome to Happy Tails Animal Shelter!'
   puts '*' * 52
-  puts '1: See list of animals available for adoption'
-  puts '2: See list of registered clients'
-  puts '3: Register with the shelter'
-  puts '4: Give up animal for adoption'
+  puts '1: Register with the shelter'
+  puts '2: Give up animal for adoption'
+  puts '3: See list of animals available for adoption'
+  puts '4: See list of registered clients'
   puts 'q: Quit'
   print '-->'
   gets.chomp
@@ -30,55 +30,60 @@ response = menu
 
 while response.downcase != 'q'
   case response
-  when '1'
-    puts 'The animals available for adoption are:'
-    #list animals from hash - by name, then choose name for more info or display all at once?
-    list_animals(happy_tails) # ?hash
-    gets
-  when '2'
-    puts 'The clients registered with Happy Tails Shelter are:'
-    list_clients(happy_tails) #ditto?
-    gets
-  when '3'
-    puts 'To register with the shelter, please answer the following questions:' #further input or continue qu?
+    when '1'
+    puts 'To register with the shelter, please answer the following questions:' 
+
     puts 'What is your name?'
     client_name = gets.chomp
-    puts client_name #?
-    gets
+
     puts 'How old are you?'
     client_age = gets.to_i
-    puts client_age #?
-    gets
+
     puts 'What is your gender?'
     client_gender = gets.chomp
-    puts client_gender #?
-    gets
+
     puts 'How many pets do you own?'
-    client_total_pets = gets.chomp
-    puts client_total_pets #?
+    client_number_of_pets = gets.chomp
+
+    client = Client.new(client_name, client_age, client_gender, client_number_of_pets)
+
+    puts "Your name is #{client_name}. You are #{client_age} and #{client_gender}. You own #{client_number_of_pets} pets."
     gets
-  when '4'
+
+  when '2'
     puts 'To register an animal for adoption, please answer the following questions:'
+
     puts 'What is its name?'
     animal_name = gets.chomp
-    puts animal_name
-    gets
+
     puts 'What breed is it?'
     animal_breed = gets.chomp
-    puts animal_breed
-    gets
+
     puts 'How old is it?'
-    animal_age = gets.to_i
-    puts animal_breed
-    gets
+    animal_age = gets.chomp
+
     puts 'What is its gender?'
     animal_gender = gets.chomp
-    puts animal_gender
+
+    puts 'What is its favourite toy?'
+    animal_favorite_toy = gets.chomp
+
+    animal = Animal.new(animal_name, animal_breed, animal_age, animal_gender, animal_favorite_toy)
+
+    puts "The animal's name is #{animal_name}. It is #{animal_age} years old, a #{animal_gender} #{animal_breed} and its favorite toy is a #{animal_favorite_toy}."
     gets
-    puts 'What is its favorite toy?'
-    animal_toy = gets.chomp
-    puts animal_toy
+
+  when '3'
+    puts 'The animals available for adoption are:'
+    #list animals from hash - by name, then choose name for more info or display all at once?
+    list_animals(happy_tails)
     gets
+
+  when '4'
+    puts 'The clients registered with Happy Tails Shelter are:'
+    list_clients(happy_tails)
+    gets
+
   end
 
   response = menu
